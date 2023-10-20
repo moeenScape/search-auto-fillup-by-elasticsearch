@@ -1,14 +1,21 @@
 package com.moeen.elk.controller;
 
 
+import co.elastic.clients.elasticsearch.core.SearchResponse;
+import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.moeen.elk.dto.ProductDto;
 import com.moeen.elk.entity.Product;
+import com.moeen.elk.entity.esEntity.EsProduct;
+import com.moeen.elk.service.EsService;
 import com.moeen.elk.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/product")
@@ -16,6 +23,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    private final EsService esService;
 
     @PostMapping("/save")
     public ResponseEntity<?> saveProduct(@RequestBody ProductDto dto) {
@@ -38,4 +47,17 @@ public class ProductController {
         return ResponseEntity.ok(productList);
     }
 
+    @PostMapping("/all")
+    public ResponseEntity<?> saveList(@RequestBody List<ProductDto> productDto) {
+        List<ProductDto> productDtoList = productService.saveProductList(productDto);
+
+        return ResponseEntity.ok(productDtoList);
+    }
+
+    @GetMapping("/auto/search/{partialProductName}")
+    public ResponseEntity<?> getProductPartialSearch(@PathVariable String partialProductName) throws IOException {
+        List<String> searchResult = esService.getResultFromSearch(partialProductName);
+
+        return ResponseEntity.ok(searchResult);
+    }
 }

@@ -1,5 +1,6 @@
 package com.moeen.elk.entity.esEntity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -7,6 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "product")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EsProduct {
     private Long id;
     private String name;

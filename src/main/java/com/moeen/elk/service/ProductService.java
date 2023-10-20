@@ -3,8 +3,8 @@ package com.moeen.elk.service;
 import com.moeen.elk.dto.ProductDto;
 import com.moeen.elk.entity.Product;
 import com.moeen.elk.entity.esEntity.EsProduct;
-import com.moeen.elk.repository.JpaProductRepository;
-import com.moeen.elk.repository.esRepository.ElasticsearchProductRepository;
+import com.moeen.elk.repository.ProductRepository;
+import com.moeen.elk.repository.esRepository.ProductEsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +14,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
-    private JpaProductRepository productRepository;
-    private ElasticsearchProductRepository productEsRepository;
+    private final ProductRepository productRepository;
+    private final ProductEsRepository productEsRepository;
 
     public ProductDto saveProduct(ProductDto dto) {
         Product product = getProductFromDto(dto);
@@ -53,6 +53,16 @@ public class ProductService {
 
     public List<ProductDto> getProductList() {
         List<Product> productList = productRepository.findAll();
+
+        return productList.stream().map(ProductDto::form).toList();
+    }
+
+    public List<ProductDto> saveProductList(List<ProductDto> productDto) {
+        List<Product> productList = productDto.stream().map(this::getProductFromDto).toList();
+        List<EsProduct> esProductList = productList.stream().map(this::getEsProduct).toList();
+
+        productList = productRepository.saveAll(productList);
+        productEsRepository.saveAll(esProductList);
 
         return productList.stream().map(ProductDto::form).toList();
     }
