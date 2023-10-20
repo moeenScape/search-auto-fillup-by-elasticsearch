@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>API Response Viewer</title>
+    <style>
+        #suggestions {
+            position: absolute;
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        #suggestions p {
+            margin: 0;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>API Response Viewer</h1>
+<input type="text" id="searchInput" onkeyup="searchApi()">
+<div id="apiResponse"></div>
+
+<div id="suggestions"></div>
+
+<script th:inline="javascript">
+    var suggestions = document.getElementById('suggestions');
+    var searchInput = document.getElementById('searchInput');
+
+    function showSuggestions(data) {
+        var html = '';
+        data.forEach(function (result) {
+            html += '<p onclick="selectSuggestion(this)">' + result + '</p>';
+        });
+        suggestions.innerHTML = html;
+        suggestions.style.display = 'block';
+    }
+
+    function hideSuggestions() {
+        suggestions.style.display = 'none';
+    }
+
+    function selectSuggestion(element) {
+        searchInput.value = element.textContent;
+        hideSuggestions();
+    }
+
+    function searchApi() {
+        var searchValue = searchInput.value;
+        if (searchValue) {
+            setTimeout(function () {
+                var url = 'http://localhost:9191/api/product/auto/search/' + searchValue;
+
+                fetch(url)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        var apiResponseElement = document.getElementById('apiResponse');
+                        var html = '';
+                        data.forEach(function (result) {
+                            html += '<p>' + result + '</p>';
+                        });
+                        apiResponseElement.innerHTML = html;
+                        hideSuggestions();
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
+            }, 1000); // Wait for 1 second before sending the API request
+        } else {
+            hideSuggestions();
+        }
+    }
+</script>
+</body>
+</html>
