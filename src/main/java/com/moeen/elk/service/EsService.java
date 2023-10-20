@@ -25,7 +25,7 @@ public class EsService {
 
         SearchResponse<EsProduct> searchResponse =
                 elasticsearchClient.search(s -> s.index("product").query(supplier.get()), EsProduct.class);
-        System.out.println("Search Query : " + supplier.get().toString());
+
         return searchResponse;
     }
 
