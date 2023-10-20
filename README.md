@@ -1,7 +1,14 @@
 ## search-auto-fill-by-elasticsearch
+### API Response of auto Suggestion
+![Auto Search](https://github.com/moeen775/search-auto-fillup-by-elasticsearch/blob/main/autoSearch.png)
 
+### Log of above api hit
 ```json
-2023-10-20T15:48:20.094+06:00  WARN 54261 --- [nio-9191-exec-7] org.elasticsearch.client.RestClient      : request [POST http://localhost:9200/product/_search?typed_keys=true] returned 1 warnings: [299 Elasticsearch-7.17.4-79878662c54c886ae89206c685d9f1051a9d6411 "Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."]
+2023-10-20T15:48:20.094+06:00  WARN 54261 --- [nio-9191-exec-7] org.elasticsearch.client.RestClient      :
+request [POST http://localhost:9200/product/_search?typed_keys=true] returned 1 warnings: [
+299 Elasticsearch-7.17.4-79878662c54c886ae89206c685d9f1051a9d6411
+"Elasticsearch built-in security features are not enabled. Without authentication, your cluster could be accessible to anyone. See
+https://www.elastic.co/guide/en/elasticsearch/reference/7.17/security-minimal-setup.html to enable security."]
 Search Query : Query: {"match":{"name":{"analyzer":"standard","query":"as"}}}
 ```
 ### Steps to be followed in Elasticsearch + Kibana 
