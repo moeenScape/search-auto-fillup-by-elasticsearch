@@ -1,7 +1,8 @@
 ## search-auto-fill-by-elasticsearch
+### API Response of auto Suggestion
+![Auto Search](https://github.com/moeen775/search-auto-fillup-by-elasticsearch/blob/main/autoSearch.png)
 
-
-
+### Log of above api hit
 ```json
 2023-10-20T15:48:20.094+06:00  WARN 54261 --- [nio-9191-exec-7] org.elasticsearch.client.RestClient      :
 request [POST http://localhost:9200/product/_search?typed_keys=true] returned 1 warnings: [
