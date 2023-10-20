@@ -9,8 +9,7 @@ import java.util.function.Supplier;
 public class esUtils {
 
     public static Supplier<Query> createSupplierQuery(String partialProductName) {
-        Supplier<Query> supplier = () -> Query.of(q -> q.match(createAutoSuggestionMatchQuery(partialProductName)));
-        return supplier;
+        return () -> Query.of(q -> q.match(createAutoSuggestionMatchQuery(partialProductName)));
     }
 
     public static MatchQuery createAutoSuggestionMatchQuery(String partialProductName) {
