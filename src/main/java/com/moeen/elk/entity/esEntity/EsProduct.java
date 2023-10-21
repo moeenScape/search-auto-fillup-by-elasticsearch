@@ -2,6 +2,7 @@ package com.moeen.elk.entity.esEntity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -11,14 +12,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class EsProduct {
     private Long id;
+    @Getter
     private String name;
     private int price;
     private String type;
     private int qty;
-
-    public String getName() {
-        return name;
-    }
 
     public void setName(String name) {
         this.name = name;

@@ -23,10 +23,7 @@ public class EsService {
     public SearchResponse<EsProduct> autoSearchProduct(String partialProductName) throws IOException {
         Supplier<Query> supplier = esUtils.createSupplierQuery(partialProductName);
 
-        SearchResponse<EsProduct> searchResponse =
-                elasticsearchClient.search(s -> s.index("product").query(supplier.get()), EsProduct.class);
-
-        return searchResponse;
+        return elasticsearchClient.search(s -> s.index("product").query(supplier.get()), EsProduct.class);
     }
 
     public List<String> getResultFromSearch(String partialProductName) throws IOException {
