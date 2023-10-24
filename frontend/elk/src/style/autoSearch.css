@@ -1,0 +1,16 @@
+.autosearch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Make the component occupy the full viewport height */
+    background-color: #f0f0f0; /* Background color */
+  }
+  
+  h1 {
+    font-size: 24px; /* Adjust the font size as needed */
+    margin-bottom: 20px; /* Add some spacing below the heading */
+  }
+  
+  /* Add more styling as needed for AutoComplete and message elements */
+  
